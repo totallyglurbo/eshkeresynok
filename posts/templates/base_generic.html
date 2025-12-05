@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+    <header>
+        <a href="{% url 'index' %}">Яглавна(</a>
+            {% if user.is_authenticated %}
+            <p>это вЫ: {{ user.get_username }}</p>
+            <a href="{% url 'profile' %}">профилЬ</a>
+            <a href="{% url 'logout' %}">Двыхо</a>
+            {% else %}
+                <a href="{% url 'login' %}">Ивойт</a>
+                <a href="{% url 'register' %}">ярегистраци</a>
+            {% endif %}
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
