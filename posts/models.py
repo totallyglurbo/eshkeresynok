@@ -8,3 +8,4 @@ class ReallyUser(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         pass
+#
