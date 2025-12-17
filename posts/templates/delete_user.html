@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div>
+    {% if user.is_authenticated %}
+         <h1>Удалить пост</h1>
+        <p>Вы уверены, что хотите удалиться?</p>
+        <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Да, удалиться"/>
+        </form>
+        {% else %}
+    <p>Пожалуйста, войдите в аккаунт.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,12 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import ReallyUser
+from .models import ReallyUser, Post
+
 
 class RegistrationForm(forms.ModelForm):
-    email = forms.EmailField(max_length=254, required=True, label="Электронная почта")
     password1 = forms.CharField(label='Пароль', required=True, widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторите пароль', required=True, widget=forms.PasswordInput)
-    avatar = forms.ImageField(label='Аватар', required=True)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -26,4 +25,10 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = ReallyUser
-        fields = ('username', 'email', 'password1', 'password2', 'avatar')
+        fields = ('username', 'password1', 'password2')
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ('name', 'description', 'status')

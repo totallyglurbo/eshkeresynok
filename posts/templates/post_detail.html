@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Экспонат</h1>
+  <h1>Название: {{ post.name }}</h1>
+<div>
+  <p><strong>Описание:</strong> {{ post.description }}</p>
+  <p><strong>Статус:</strong> {{ post.get_status_display }}</p>
+    {% if user.is_authenticated %}
+    <div>
+      <a href="{% url 'post-delete' post.id %}"><strong>Удалить?</strong></a>
+      <a href="{% url 'post-update' post.id %}"><strong>Изменить?</strong></a>
+      {% else %}
+      <p>НЕТ ПРАВ!</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

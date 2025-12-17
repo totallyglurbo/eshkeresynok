@@ -12,6 +12,7 @@
             <p>это вЫ: {{ user.get_username }}</p>
             <a href="{% url 'profile' %}">профилЬ</a>
             <a href="{% url 'logout' %}">Двыхо</a>
+            <a href="{% url 'create' %}">Ьсоздат</a>
             {% else %}
                 <a href="{% url 'login' %}">Ивойт</a>
                 <a href="{% url 'register' %}">ярегистраци</a>

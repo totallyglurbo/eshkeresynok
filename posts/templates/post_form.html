@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Создание поста</h1>
+    {% if user.is_authenticated %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+       <input type="submit" class="log" value="Создать"/>
+    </form>
+    {% else %}
+        <p>Войдите в аккаунт.</p>
+    {% endif %}
+{% endblock %}

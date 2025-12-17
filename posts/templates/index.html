@@ -2,4 +2,15 @@
 
 {% block content %}
     <h1>эщкере сынок</h1>
+    {% if posts %}
+        <div>
+            {% for post in posts %}
+            <a href="{% url 'post-detail' post.id %}">Название: {{ post.name }}</a>
+            <p>Описание: {{ post.description }}</p>
+            <p>Статус: {{ post.get_status_display }}</p>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p>Нет!</p>
+        {% endif %}
 {% endblock %}
