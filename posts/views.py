@@ -11,7 +11,9 @@ from posts.models import Post
 
 def index(request):
     posts = Post.objects.all()
-    context = {'posts': posts}
+    num_posts_available = Post.objects.filter(status__exact='in').count()
+    num_posts_unavailable = Post.objects.filter(status__exact='out').count()
+    context = {'posts': posts, 'num_posts_available': num_posts_available, 'num_posts_unavailable': num_posts_unavailable}
     return render(request, 'index.html', context)
 
 

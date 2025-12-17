@@ -1,7 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>эщкере сынок</h1>
+    <h1>Учёт экспонатов</h1>
+    <h2>Экспонаты в наличии: {{ num_posts_available }}</h2>
+    <h2>Экспонаты не в наличии: {{ num_posts_unavailable }}</h2>
     {% if posts %}
         <div>
             {% for post in posts %}
