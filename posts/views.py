@@ -1,5 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -41,34 +43,39 @@ def logout_view(request):
 
 @login_required
 def profile_view(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(author=request.user)
     context = {
         'posts': posts,
+        'user': request.user,
     }
     return render(request, 'profile.html', context)
 
 
-class PostCreate(CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_form.html'
     form_class = PostForm
     success_url = reverse_lazy('index')
+    permission_required = 'posts.add_post'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 class PostDetail(DetailView):
+    permission_required = 'posts.add_post'
     model = Post
     template_name = 'post_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
-class PostDelete(DeleteView):
+
+class PostDelete(PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_confirm_delete.html'
     success_url = reverse_lazy('profile')
+    permission_required = 'posts.delete_post'
 
 class PostUpdate(UpdateView):
     model = Post
